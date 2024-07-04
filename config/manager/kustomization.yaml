@@ -5,4 +5,4 @@ kind: Kustomization
 images:
 - name: controller
   newName: teambeata/devsabayops-operator
-  newTag: v0.0.1-h-1
+  newTag: v0.0.1-h-2

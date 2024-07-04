@@ -56,8 +56,8 @@ func (r *ProjectVendingReconciler) Reconcile(ctx context.Context, req ctrl.Reque
 	logger := log.FromContext(ctx)
 
 	// Fetch the NamespaceRequest instance
-	nsRequest := &devsabayopsv1alpha1.ProjectVending{}
-	err := r.Get(ctx, req.NamespacedName, nsRequest)
+	apiRequest := &devsabayopsv1alpha1.ProjectVending{}
+	err := r.Get(ctx, req.NamespacedName, apiRequest)
 	if err != nil {
 		if errors.IsNotFound(err) {
 			return ctrl.Result{}, nil
@@ -67,9 +67,9 @@ func (r *ProjectVendingReconciler) Reconcile(ctx context.Context, req ctrl.Reque
 
 	// Check if the namespace already exists
 	ns := &corev1.Namespace{}
-	err = r.Get(ctx, types.NamespacedName{Name: nsRequest.Spec.Name}, ns)
+	err = r.Get(ctx, types.NamespacedName{Name: apiRequest.Spec.Name}, ns)
 	if err == nil {
-		logger.Info(fmt.Sprintf("Namespace '%s' already exists", nsRequest.Spec.Name))
+		logger.Info(fmt.Sprintf("Namespace '%s' already exists", apiRequest.Spec.Name))
 		return ctrl.Result{}, nil
 	} else if !errors.IsNotFound(err) {
 		return ctrl.Result{}, err
@@ -78,7 +78,7 @@ func (r *ProjectVendingReconciler) Reconcile(ctx context.Context, req ctrl.Reque
 	// Create the namespace
 	ns = &corev1.Namespace{
 		ObjectMeta: metav1.ObjectMeta{
-			Name: nsRequest.Spec.Name,
+			Name: apiRequest.Spec.Name,
 		},
 	}
 	err = r.Create(ctx, ns)
@@ -86,7 +86,7 @@ func (r *ProjectVendingReconciler) Reconcile(ctx context.Context, req ctrl.Reque
 		return ctrl.Result{}, err
 	}
 
-	logger.Info(fmt.Sprintf("Namespace '%s' created", nsRequest.Spec.Name))
+	logger.Info(fmt.Sprintf("Namespace '%s' created", apiRequest.Spec.Name))
 
 	return ctrl.Result{}, nil
 }
