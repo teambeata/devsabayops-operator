@@ -1,0 +1,27 @@
+# permissions for end users to view projectvendings.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    app.kubernetes.io/name: clusterrole
+    app.kubernetes.io/instance: projectvending-viewer-role
+    app.kubernetes.io/component: rbac
+    app.kubernetes.io/created-by: devsabayops-operator
+    app.kubernetes.io/part-of: devsabayops-operator
+    app.kubernetes.io/managed-by: kustomize
+  name: projectvending-viewer-role
+rules:
+- apiGroups:
+  - devsabayops.teambeata.com
+  resources:
+  - projectvendings
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - devsabayops.teambeata.com
+  resources:
+  - projectvendings/status
+  verbs:
+  - get

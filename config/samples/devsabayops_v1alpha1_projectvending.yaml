@@ -1,0 +1,14 @@
+apiVersion: devsabayops.teambeata.com/v1alpha1
+kind: ProjectVending
+metadata:
+  labels:
+    app.kubernetes.io/name: projectvending
+    app.kubernetes.io/instance: barangay-tibay
+    app.kubernetes.io/part-of: devsabayops-operator
+    app.kubernetes.io/managed-by: kustomize
+    app.kubernetes.io/created-by: devsabayops-operator
+  name: barangay-tibay
+  namespace: devsabayops-operator-system
+spec:
+  # TODO(user): Add fields here
+  name: barangay-tibay
